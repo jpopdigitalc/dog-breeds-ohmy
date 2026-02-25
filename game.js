@@ -829,7 +829,7 @@ function endRound(reason = "time_up") {
     gameScene.children.removeAll();
     
     const totalDogs = dogsPresentedThisRound;
-    const score = totalDogs > 0 ? `${correctAnswers}/${totalDogs}` : "0/0";
+    const score = totalDogs > 0 ? `${Math.round((correctAnswers / totalDogs) * 100)}%` : "0%";
     const maxErrors = ROUND_CONFIG[currentRound].maxErrors;
     
     let endMessage = `Round ${currentRound} Complete`;

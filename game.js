@@ -44,6 +44,7 @@ let blinkTimer = null;
 let currentQuestionStartTime = 0;
 let errors = 0; // Track errors (wrong answers) for error tolerance
 let hasAnsweredCurrentQuestion = false; // Prevent multiple answers to same question
+let dogsPresentedThisRound = 0; // How many dog images were shown this round
 
 // Progression requirements
 const PROGRESSION_REQUIREMENTS = {
@@ -501,6 +502,7 @@ async function startRound(round) {
     errors = 0;
     correctAnswers = 0;
     totalTime = 0;
+    dogsPresentedThisRound = 0;
     
     // Initialize breed pool
     initializeRoundBreeds(round);
@@ -580,6 +582,7 @@ async function showNewDog(round) {
     answerPills = [];
     
     hasAnsweredCurrentQuestion = false;
+    dogsPresentedThisRound += 1;
     
     let imageKey = null;
     let loadingText = null;
@@ -825,7 +828,8 @@ function endRound(reason = "time_up") {
     
     gameScene.children.removeAll();
     
-    const score = correctAnswers > 0 ? (correctAnswers / totalTime).toFixed(2) : 0;
+    const totalDogs = dogsPresentedThisRound;
+    const score = totalDogs > 0 ? `${correctAnswers}/${totalDogs}` : "0/0";
     const maxErrors = ROUND_CONFIG[currentRound].maxErrors;
     
     let endMessage = `Round ${currentRound} Complete`;

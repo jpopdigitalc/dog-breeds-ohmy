@@ -53,31 +53,31 @@ const PROGRESSION_REQUIREMENTS = {
     leaderboard: 18  // Need 18 correct to reach leaderboard
 };
 
-// Round configuration
+// Round configuration — 20 distinct breeds per round, no duplicates
 const ROUND_CONFIG = {
     1: {
-        displayTime: 5,           // 5 seconds to see the dog
-        blinkDuration: 1.5,       // 1.5 second blink-out (longest)
-        maxErrors: 3,             // Up to 3 errors allowed
-        breeds: ["Golden Retriever", "Labrador", "German Shepherd", "Bulldog", "Beagle", "Poodle", "Rottweiler", "Yorkshire Terrier"]
+        displayTime: 5,
+        blinkDuration: 1.5,
+        maxErrors: 3,
+        breeds: ["Golden Retriever", "Labrador", "German Shepherd", "Bulldog", "Beagle", "Poodle", "Rottweiler", "Yorkshire Terrier", "Dachshund", "Chihuahua", "Pomeranian", "Boxer", "Doberman", "Pembroke", "Shetland Sheepdog", "Maltese", "Shih Tzu", "Cocker Spaniel", "French Bulldog", "Boston Terrier"]
     },
     2: {
-        displayTime: 3,           // 3 seconds to see the dog
-        blinkDuration: 1.0,       // 1 second blink-out (shorter)
-        maxErrors: 2,             // Up to 2 errors allowed
-        breeds: ["Shiba Inu", "Border Collie", "Australian Shepherd", "Dalmatian", "Husky", "Akita", "Basenji", "Whippet"]
+        displayTime: 3,
+        blinkDuration: 1.0,
+        maxErrors: 2,
+        breeds: ["Shiba Inu", "Border Collie", "Australian Shepherd", "Dalmatian", "Husky", "Akita", "Basenji", "Whippet", "Samoyed", "Great Dane", "Weimaraner", "Vizsla", "Rhodesian Ridgeback", "Newfoundland", "Bernese Mountain Dog", "Irish Setter", "Chesapeake Bay Retriever", "Papillon", "Lhasa Apso", "Alaskan Malamute"]
     },
     3: {
-        displayTime: 2,           // 2 seconds to see the dog
-        blinkDuration: 0.5,       // 0.5 second blink-out (shortest)
-        maxErrors: 1,             // Up to 1 error allowed
-        breeds: ["Xoloitzcuintli", "Azawakh", "Catalburun", "Lundehund", "Mudi", "Lagotto Romagnolo", "Keeshond", "Bergamasco"]
+        displayTime: 2,
+        blinkDuration: 0.5,
+        maxErrors: 1,
+        breeds: ["Xoloitzcuintli", "Saluki", "German Pointer", "Norwegian Elkhound", "Lagotto Romagnolo", "Keeshond", "Borzoi", "Otterhound", "Scottish Deerhound", "Ibizan Hound", "Afghan Hound", "Entlebucher", "Appenzeller", "Briard", "Bouvier", "Komondor", "Kuvasz", "Schipperke", "Finnish Lapphund", "Groenendael"]
     }
 };
 
 // Breed to Dog CEO API path (main/sub for sub-breeds: https://dog.ceo/api/breed/{path}/images/random)
 const BREED_API_MAP = {
-    // Round 1 breeds
+    // Round 1 (20 breeds)
     "Golden Retriever": "retriever/golden",
     "Labrador": "labrador",
     "German Shepherd": "german/shepherd",
@@ -86,8 +86,19 @@ const BREED_API_MAP = {
     "Poodle": "poodle/standard",
     "Rottweiler": "rottweiler",
     "Yorkshire Terrier": "terrier/yorkshire",
-    
-    // Round 2 breeds
+    "Dachshund": "dachshund",
+    "Chihuahua": "chihuahua",
+    "Pomeranian": "pomeranian",
+    "Boxer": "boxer",
+    "Doberman": "doberman",
+    "Pembroke": "pembroke",
+    "Shetland Sheepdog": "sheepdog/shetland",
+    "Maltese": "maltese",
+    "Shih Tzu": "shihtzu",
+    "Cocker Spaniel": "spaniel/cocker",
+    "French Bulldog": "bulldog/french",
+    "Boston Terrier": "bulldog/boston",
+    // Round 2 (20 breeds)
     "Shiba Inu": "shiba",
     "Border Collie": "collie/border",
     "Australian Shepherd": "australian/shepherd",
@@ -96,19 +107,42 @@ const BREED_API_MAP = {
     "Akita": "akita",
     "Basenji": "basenji",
     "Whippet": "whippet",
-    
-    // Round 3 breeds (obscure)
+    "Samoyed": "samoyed",
+    "Great Dane": "dane/great",
+    "Weimaraner": "weimaraner",
+    "Vizsla": "vizsla",
+    "Rhodesian Ridgeback": "ridgeback/rhodesian",
+    "Newfoundland": "newfoundland",
+    "Bernese Mountain Dog": "mountain/bernese",
+    "Irish Setter": "setter/irish",
+    "Chesapeake Bay Retriever": "retriever/chesapeake",
+    "Papillon": "papillon",
+    "Lhasa Apso": "lhasa",
+    "Alaskan Malamute": "malamute",
+    // Round 3 (20 obscure breeds)
     "Xoloitzcuintli": "mexicanhairless",
-    "Azawakh": "saluki",
-    "Catalburun": "pointer/german",
-    "Lundehund": "elkhound/norwegian",
-    "Mudi": "sheepdog/shetland",
+    "Saluki": "saluki",
+    "German Pointer": "pointer/german",
+    "Norwegian Elkhound": "elkhound/norwegian",
     "Lagotto Romagnolo": "waterdog/spanish",
     "Keeshond": "keeshond",
-    "Bergamasco": "sheepdog/shetland",
+    "Borzoi": "borzoi",
+    "Otterhound": "otterhound",
+    "Scottish Deerhound": "deerhound/scottish",
+    "Ibizan Hound": "hound/ibizan",
+    "Afghan Hound": "hound/afghan",
+    "Entlebucher": "entlebucher",
+    "Appenzeller": "appenzeller",
+    "Briard": "briard",
+    "Bouvier": "bouvier",
+    "Komondor": "komondor",
+    "Kuvasz": "kuvasz",
+    "Schipperke": "schipperke",
+    "Finnish Lapphund": "finnish/lapphund",
+    "Groenendael": "groenendael",
 };
 
-// Round breed pools (max 2 breeds per round)
+// Round breed pool (all 20 breeds per round, no duplicates)
 let roundBreedPool = [];
 
 // Scale image to fit within max size, keep aspect ratio, ensure no side under 100px
@@ -161,64 +195,24 @@ function updatePillColor(pill, color) {
     pill._pillColor = color;
 }
 
-// Initialize breed pool for round (1 or 2 breeds, randomly determined)
+// Initialize breed pool for round (all 20 distinct breeds, no duplicates)
 function initializeRoundBreeds(round) {
     const availableBreeds = ROUND_CONFIG[round].breeds;
-    // Randomly select 1 or 2 breeds for this round
-    const numBreeds = Math.floor(Math.random() * 2) + 1; // 1 or 2
-    const shuffled = [...availableBreeds].sort(() => Math.random() - 0.5);
-    roundBreedPool = shuffled.slice(0, numBreeds);
-    
-    // Ensure at least 2 breeds for answer choices to work properly
-    if (roundBreedPool.length === 1 && availableBreeds.length > 1) {
-        const remainingBreeds = availableBreeds.filter(b => !roundBreedPool.includes(b));
-        if (remainingBreeds.length > 0) {
-            const randomBreed = remainingBreeds[Math.floor(Math.random() * remainingBreeds.length)];
-            roundBreedPool.push(randomBreed);
-        }
-    }
-    
+    roundBreedPool = [...availableBreeds].sort(() => Math.random() - 0.5);
     return roundBreedPool;
 }
 
-// Generate answer choices. Enforce: no more than one duplicate (no breed appears more than twice).
+// Generate answer choices: 4 options, all distinct breeds from the round pool (no duplicates).
 function generateChoices(correctBreed, round) {
-    const choicePool = (round === 1)
-        ? ROUND_CONFIG[1].breeds
-        : roundBreedPool;
+    const choicePool = roundBreedPool;
     const wrongBreeds = choicePool.filter(b => b !== correctBreed);
-    const totalChoices = round === 1 ? 4 : 3 + Math.floor(Math.random() * 2); // 4 for R1; 3–4 for R2/R3
-    const numWrong = totalChoices - 1; // 1 correct + numWrong wrong
+    const numWrong = 3; // 1 correct + 3 wrong = 4 choices
 
-    const selectedWrong = [];
     const shuffledWrong = [...wrongBreeds].sort(() => Math.random() - 0.5);
+    const selectedWrong = shuffledWrong.slice(0, numWrong);
 
-    // Use each wrong breed at most once first
-    for (let i = 0; i < numWrong && i < shuffledWrong.length; i++) {
-        selectedWrong.push(shuffledWrong[i]);
-    }
-
-    // If we still need more wrong choices, add exactly one duplicate (one breed repeated once, no more)
-    if (selectedWrong.length < numWrong && shuffledWrong.length > 0) {
-        selectedWrong.push(shuffledWrong[0]);
-    }
-
-    let choices = [correctBreed, ...selectedWrong];
-
-    // Enforce at most one duplicate: no breed appears more than twice
-    choices = capToAtMostOneDuplicate(choices);
+    const choices = [correctBreed, ...selectedWrong];
     return choices.sort(() => Math.random() - 0.5);
-}
-
-// Ensure no breed appears more than twice (at most one duplicate per breed).
-function capToAtMostOneDuplicate(choices) {
-    const seen = {};
-    const out = [];
-    for (const b of choices) {
-        seen[b] = (seen[b] || 0) + 1;
-        if (seen[b] <= 2) out.push(b);
-    }
-    return out;
 }
 
 // Preload 25 different breed images for Round 1
